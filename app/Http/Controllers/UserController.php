@@ -6,11 +6,32 @@ use App\Helper\JWTToken;
 use App\Mail\OTPMail;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller {
 
+    function LoginPage(): View {
+        return view('pages.auth.login-page');
+    }
+    function RegistrationPage() {
+        return view('pages.auth.registration-page');
+    }
+    function SentOtpPage() {
+        return view('pages.auth.send-otp-page');
+    }
+    function VerifyOTPPage() {
+        return view('pages.auth.verify-otp-page');
+    }
+    function ResetPasswordPage() {
+        return view('pages.auth.reset-pass-page');
+    }
+    function Dashboard() {
+        return view('pages.dashboard.dashboard-page');
+    }
+
+    // for api
     function UserRegistration(Request $request) {
         try {
             User::create([

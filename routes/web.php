@@ -18,9 +18,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// API
 Route::post('/user-registration', [UserController::class, 'UserRegistration']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
 Route::post('/sendotp', [UserController::class, 'SentOTPCode']);
 Route::post('/verify-otp', [UserController::class, 'VerifyOTP']);
 // Token Verify
 Route::post('/reset-password', [UserController::class, 'ResetPassword'])->middleware([TokenVerificationMiddleware::class]);
+
+// Web
+Route::get('/UserLogin', [UserController::class, 'LoginPage']);
+Route::get('/userRegistration', [UserController::class, 'RegistrationPage']);
+Route::get('/sendOtp', [UserController::class, 'SendOtpPage']);
+Route::get('/verifyOtp', [UserController::class, 'VerifyOTPPage']);
+Route::get('/resetPassword', [UserController::class, 'ResetPasswordPage']);
+Route::get('/dashboard', [UserController::class, 'DashboardPage']);
