@@ -10,7 +10,7 @@ class JWTToken {
     public static function createToken($userEmail): string{
         $key = env('JWT_KEY');
         $payload = [
-            'iss'       => 'http://example.org',
+            'iss'       => 'laravel-token',
             'iat'       => time(),
             'exp'       => time() + 60 * 60,
             'userEmail' => $userEmail,
@@ -21,7 +21,7 @@ class JWTToken {
     public static function createTokenForSetPassword($userEmail): string{
         $key = env('JWT_KEY');
         $payload = [
-            'iss'       => 'http://example.org',
+            'iss'       => 'laravel-token',
             'iat'       => time(),
             'exp'       => time() + 60 * 10,
             'userEmail' => $userEmail,
