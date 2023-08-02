@@ -27,7 +27,7 @@ class UserController extends Controller {
     function ResetPasswordPage() {
         return view('pages.auth.reset-pass-page');
     }
-    function Dashboard() {
+    function DashboardPage() {
         return view('pages.dashboard.dashboard-page');
     }
 
@@ -64,7 +64,7 @@ class UserController extends Controller {
             // User login -> JWT Token issue
             $token = JWTToken::createToken($request->input('email'));
             return response()->json([
-                'status'  => 'Success',
+                'status'  => 'success',
                 'message' => 'User Login Successfull',
                 'token'   => $token,
             ], 200);
