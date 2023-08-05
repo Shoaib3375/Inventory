@@ -79,7 +79,7 @@
             if(res.status===200 && res.data['status']==='success'){
                 successToast(res.data['message']);
                 setTimeout(function (){
-                    window.location.href='/userLogin'
+                    window.location.href='/UserLogin'
                 },2000)
             }
             else{

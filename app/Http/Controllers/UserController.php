@@ -12,27 +12,27 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller {
 
-    function LoginPage(): View {
+    function loginPage() {
         return view('pages.auth.login-page');
     }
-    function RegistrationPage() {
+    function registrationPage() {
         return view('pages.auth.registration-page');
     }
-    function SentOtpPage() {
+    function sentOtpPage() {
         return view('pages.auth.send-otp-page');
     }
-    function VerifyOTPPage() {
+    function verifyOTPPage() {
         return view('pages.auth.verify-otp-page');
     }
-    function ResetPasswordPage() {
+    function resetPasswordPage() {
         return view('pages.auth.reset-pass-page');
     }
-    function DashboardPage() {
+    function dashboardPage() {
         return view('pages.dashboard.dashboard-page');
     }
 
     // for api
-    function UserRegistration(Request $request) {
+    function userRegistration(Request $request) {
         try {
             User::create([
                 'firstName' => $request->input('firstName'),
@@ -55,7 +55,7 @@ class UserController extends Controller {
 
     }
 
-    function UserLogin(Request $request) {
+    function userLogin(Request $request) {
         $count = User::where('email', '=', $request->input('email'))
             ->where('password', '=', $request->input('password'))
             ->count();
@@ -76,7 +76,7 @@ class UserController extends Controller {
         }
     }
 
-    function SentOTPCode(Request $request) {
+    function sentOTPCode(Request $request) {
         $email = $request->input('email');
         $otp = rand(1000, 9999);
         $count = User::where('email', '=', $email)->count();
@@ -86,9 +86,9 @@ class UserController extends Controller {
             Mail::to($email)->send(new OTPMail($otp));
             User::where('email', '=', $email)->update(['otp' => $otp]);
             return response()->json([
-                'status'  => 'Success',
+                'status'  => 'success',
                 'message' => 'Otp send your mail',
-            ], 250);
+            ], 200);
             // otp code table insert
         } else {
             return response()->json([
@@ -98,7 +98,7 @@ class UserController extends Controller {
         }
     }
 
-    function VerifyOTP(Request $request) {
+    function verifyOtp(Request $request) {
         $email = $request->input('email');
         $otp = $request->input('otp');
         $count = User::where('email', '=', $email)
@@ -122,7 +122,7 @@ class UserController extends Controller {
         }
     }
 
-    function ResetPassword(Request $request) {
+    function resetPassword(Request $request) {
         try {
             $email = $request->header('email');
             $password = $request->input('password');
