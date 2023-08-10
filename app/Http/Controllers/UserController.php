@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller {
 
+    function dashboardPage() {
+        return view('pages.dashboard.dashboard-page');
+    }
     function loginPage() {
         return view('pages.auth.login-page');
     }
@@ -27,8 +30,9 @@ class UserController extends Controller {
     function resetPasswordPage() {
         return view('pages.auth.reset-pass-page');
     }
-    function dashboardPage() {
-        return view('pages.dashboard.dashboard-page');
+
+    function profilePage() {
+        return view('pages.dashboard.profile-page');
     }
 
     // for api
@@ -58,20 +62,20 @@ class UserController extends Controller {
     function userLogin(Request $request) {
         $count = User::where('email', '=', $request->input('email'))
             ->where('password', '=', $request->input('password'))
-            ->count();
+            ->select('id')->first();
 
-        if ($count == 1) {
+        if ($count !== null) {
             // User login -> JWT Token issue
-            $token = JWTToken::createToken($request->input('email'));
+            $token = JWTToken::createToken($request->input('email'), $count->id);
             return response()->json([
                 'status'  => 'success',
-                'message' => 'User Login Successfull',
+                'message' => 'User Login Successful',
                 // 'token'   => $token,
             ], 200)->cookie('token', $token, 60 * 24 * 30, ',');
         } else {
             return response()->json([
                 'status'  => 'failed',
-                'message' => 'UnAuthorized',
+                'message' => 'unauthorized',
             ], 401);
         }
     }
@@ -137,5 +141,8 @@ class UserController extends Controller {
                 'message' => 'Something went wrong ',
             ], 401);
         }
+    }
+    function userLogout(Request $request) {
+        return redirect('/userLogin')->cookie('token', '', -1);
     }
 }
