@@ -9,7 +9,7 @@
                     <br/>
                     <input id="password" placeholder="User Password" class="form-control" type="password"/>
                     <br/>
-                    <button onclick="SubmitLogin()" class="btn w-100 btn-primary">Login</button>
+                    <button onclick="SubmitLogin()" class="btn w-100 bg-gradient-primary">Next</button>
                     <hr/>
                     <div class="float-end mt-3">
                         <span>
@@ -49,7 +49,5 @@
                 }
             }
     }
-
-
 
 </script>

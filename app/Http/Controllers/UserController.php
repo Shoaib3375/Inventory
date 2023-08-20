@@ -115,7 +115,7 @@ class UserController extends Controller {
             $token = JWTToken::createTokenForSetPassword($request->input('email'));
             return response()->json([
                 'status'  => 'success',
-                'message' => 'OTP verify successfull',
+                'message' => 'OTP verify successful',
                 'token'   => $token,
             ], 200);
         } else {
@@ -144,5 +144,38 @@ class UserController extends Controller {
     }
     function userLogout(Request $request) {
         return redirect('/userLogin')->cookie('token', '', -1);
+    }
+    function userProfile(Request $request) {
+        $email = $request->header('email');
+        $user = User::where('email', '=', $email)->first();
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Request Successful',
+            'data'    => $user,
+        ], 200);
+    }
+    function updateProfile(Request $request) {
+        try {
+            $email = $request->header('email');
+            $firstName = $request->input('firstName');
+            $lastName = $request->input('lastName');
+            $mobile = $request->input('mobile');
+            $password = $request->input('password');
+            User::where('email', '=', $email)->update([
+                'firstName' => $firstName,
+                'lastName'  => $lastName,
+                'mobile'    => $mobile,
+                'password'  => $password,
+            ]);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Update Successful',
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'status'  => 'failed',
+                'message' => 'Something Went Wrong',
+            ], 417);
+        }
     }
 }

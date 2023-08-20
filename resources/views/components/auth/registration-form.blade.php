@@ -30,7 +30,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-md-4 p-2">
-                                <button onclick="onRegistration()" class="btn mt-3 w-100  btn-primary">Complete</button>
+                                <button onclick="onRegistration()" class="btn mt-3 w-100  bg-gradient-primary">Complete</button>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
             if(res.status===200 && res.data['status']==='success'){
                 successToast(res.data['message']);
                 setTimeout(function (){
-                    window.location.href='/UserLogin'
+                    window.location.href='/userLogin'
                 },2000)
             }
             else{
