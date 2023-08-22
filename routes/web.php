@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,19 @@ Route::post('/send-otp', [UserController::class, 'sentOTPCode']);
 Route::post('/verify-otp', [UserController::class, 'verifyOTP']);
 // Token Verify
 Route::post('/reset-password', [UserController::class, 'ResetPassword'])->middleware([TokenVerificationMiddleware::class]);
+// Category API
+Route::post('/create-category', [CategoryController::class, 'categoryCreate'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/list-category', [CategoryController::class, 'categoryList'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/delete-category', [CategoryController::class, 'categoryDelete'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/update-category', [CategoryController::class, 'categoryUpdate'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/category-by-id', [CategoryController::class, 'CategoryByID'])->middleware([TokenVerificationMiddleware::class]);
+
+// Customer API
+Route::post("/create-customer", [CustomerController::class, 'CustomerCreate'])->middleware([TokenVerificationMiddleware::class]);
+Route::get("/list-customer", [CustomerController::class, 'CustomerList'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/delete-customer", [CustomerController::class, 'CustomerDelete'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/update-customer", [CustomerController::class, 'CustomerUpdate'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/customer-by-id", [CustomerController::class, 'CustomerByID'])->middleware([TokenVerificationMiddleware::class]);
 
 // Web
 Route::get('/userLogin', [UserController::class, 'loginPage']);
@@ -37,12 +51,7 @@ Route::get('/resetPassword', [UserController::class, 'resetPasswordPage'])->midd
 Route::get('/dashboard', [UserController::class, 'dashboardPage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/userProfile', [UserController::class, 'profilePage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/categoryPage', [CategoryController::class, 'categoryPage'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/customerPage', [CustomerController::class, 'CustomerPage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/user-profile', [UserController::class, 'userProfile'])->middleware([TokenVerificationMiddleware::class]);
 Route::post('/user-update', [UserController::class, 'updateProfile'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/logout', [UserController::class, 'userLogout']);
-
-// Category API
-Route::post('/create-category', [CategoryController::class, 'categoryCreate'])->middleware([TokenVerificationMiddleware::class]);
-Route::get('/list-category', [CategoryController::class, 'categoryList'])->middleware([TokenVerificationMiddleware::class]);
-Route::post('/delete-category', [CategoryController::class, 'categoryDelete'])->middleware([TokenVerificationMiddleware::class]);
-Route::post('/update-category', [CategoryController::class, 'categoryUpdate'])->middleware([TokenVerificationMiddleware::class]);

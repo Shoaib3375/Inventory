@@ -73,7 +73,7 @@ async function getList() {
     })
 
     new DataTable('#tableData',{
-        order:[[0,'desc']],
+        order:[[0,'asc']],
         lengthMenu:[5,10,15,20,30]
     });
 

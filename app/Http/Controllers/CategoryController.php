@@ -26,6 +26,11 @@ class CategoryController extends Controller {
         $user_id = $request->header('id');
         return Category::where('id', $category_id)->where('user_id', $user_id)->delete();
     }
+    function CategoryByID(Request $request) {
+        $category_id = $request->input('id');
+        $user_id = $request->header('id');
+        return Category::where('id', $category_id)->where('user_id', $user_id)->first();
+    }
     function categoryUpdate(Request $request) {
         $category_id = $request->input('id');
         $user_id = $request->header('id');
