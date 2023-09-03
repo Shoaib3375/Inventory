@@ -35,7 +35,7 @@ class CustomerController extends Controller {
     function CustomerUpdate(Request $request) {
         $customer_id = $request->input('id');
         $user_id = $request->header('id');
-        return Customer::where('id', $customer_id)->where('user_id')->update([
+        return Customer::where('id', $customer_id)->where('user_id', $user_id)->update([
             'name'   => $request->input('name'),
             'email'  => $request->input('email'),
             'mobile' => $request->input('mobile'),
